@@ -1,0 +1,309 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap');
+
+/* Zmienne globalne */
+:root {
+    --primary-color: #444;
+    --secondary-color: #cfa760;
+    --background-color: #f2f1ef;
+    --font-family: 'Playfair Display', serif, serif;
+    --header-font-size: 1.5rem;      /* ~24px */
+    --h1-font-size: 3.125rem;        /* ~50px */
+    --h2-font-size: 1.125rem;        /* ~18px */
+    --nav-font-size: 1rem;           /* ~16px */
+    --transition-duration: 0.3s;
+    --spinner-color: #cfa760;
+    --border-radius: 0.25rem;        /* ~4px */
+}
+
+/* Globalne ustawienie box-sizing */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Styl podstawowy body */
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    text-align: center;
+    scroll-behavior: smooth;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Styl nagłówka */
+header {
+    background-color: var(--background-color);
+    padding: 1.875rem 0;  /* 30px */
+    font-size: var(--header-font-size);
+    animation: fadeIn 1s ease-in-out;
+}
+
+h1 {
+    font-size: var(--h1-font-size);
+    margin: 0;
+    letter-spacing: 0.125rem; /* 2px */
+}
+
+h2 {
+    font-size: var(--h2-font-size);
+    color: var(--primary-color);
+}
+
+h3 {
+    font-size: var(--header-font-size);
+    color: var(--primary-color);
+    margin-bottom: 1.25rem; /* 20px */
+}
+
+/* Styl akapitów */
+p {
+    margin: 0 0 1.25rem;  /* 20px */
+    line-height: 1.6;
+}
+
+/* Nawigacja – sticky oraz ulepszone przejścia */
+/* Pozycja sticky umożliwia przyklejenie nawigacji do góry ekranu */
+nav {
+    margin-top: 1.25rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--background-color);
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+}
+
+nav::before {
+    content: '';
+    display: block;
+    width: 80%;
+    height: 1px;
+    background: rgba(242, 241, 239, 0.85);
+    margin: 0 auto 0.625rem; /* 10px */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    position: relative;
+    margin: 0 0.9375rem; /* 15px */
+}
+
+nav ul li a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: var(--nav-font-size);
+    padding: 0.625rem; /* 10px */
+    transition: color var(--transition-duration), background-color var(--transition-duration), transform var(--transition-duration);
+    border-radius: var(--border-radius);
+}
+
+/* Efekt hover – delikatne powiększenie oraz zmiana koloru */
+nav ul li a:hover,
+nav ul li a:focus {
+    color: var(--secondary-color);
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: scale(1.05);
+    outline: none;
+}
+
+/* Styl stanu focus – dodatkowo widoczny focus */
+nav ul li a:focus-visible {
+    outline: 2px dashed var(--secondary-color);
+    outline-offset: 4px;
+}
+
+/* Styl aktywnego elementu menu */
+nav ul li a.active {
+    color: var(--secondary-color);
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+/* Dropdown menu – zachowana struktura */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
+    padding: 0.625rem; /* 10px */
+    border: 1px solid #eee;
+    border-radius: var(--border-radius);
+    min-width: 9.375rem; /* 150px */
+    z-index: 1000;
+}
+
+.dropdown:hover .dropdown-menu,
+.dropdown:focus-within .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu li {
+    margin: 0.3125rem 0; /* 5px */
+}
+
+.dropdown-menu li a {
+    padding: 0.5rem; /* 8px */
+    display: block;
+}
+
+/* Główna zawartość */
+.content {
+    padding: 3.125rem; /* 50px */
+    animation: fadeIn 1s ease-in-out;
+    flex: 1;
+    max-width: 50rem; /* 800px */
+    margin: 0 auto;
+}
+
+/* Loader/spinner dla akcji asynchronicznych */
+.spinner {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 3.125rem;  /* 50px */
+    height: 3.125rem; /* 50px */
+    border: 0.3125rem solid rgba(0, 0, 0, 0.1); /* 5px */
+    border-top: 0.3125rem solid var(--spinner-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    transform: translate(-50%, -50%);
+}
+
+/* Animacja spinnera */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Animacja fadeIn */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Styl stopki */
+footer {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 1.25rem 0;  /* 20px */
+    font-size: 0.875rem; /* 14px */
+    text-align: center;
+}
+
+footer p {
+    margin: 0.3125rem 0; /* 5px */
+}
+
+footer a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color var(--transition-duration);
+}
+
+footer a:hover,
+footer a:focus {
+    color: #fff;
+}
+
+/* Styl tabeli z cennikiem */
+.price-list {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+}
+
+.price-list td {
+    padding: 0.625rem;    /* 10px */
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.price-list tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Zapytania medialne dla responsywności */
+/* Dla urządzeń mobilnych */
+@media (max-width: 768px) {
+    .content {
+        padding: 1.875rem;  /* 30px */
+    }
+    header {
+        padding: 1.25rem 0;  /* 20px */
+        font-size: calc(var(--header-font-size) * 0.9);
+    }
+    h1 {
+        font-size: calc(var(--h1-font-size) * 0.9);
+    }
+    h2,
+    h3 {
+        font-size: calc(var(--h2-font-size) * 0.9);
+    }
+    /* Nawigacja – układ pionowy */
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    nav ul li {
+        margin: 0.625rem 0; /* 10px */
+    }
+}
+
+/* Nowy breakpoint dla tabletów */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .content {
+        padding: 2.5rem; /* 40px */
+    }
+    nav ul li {
+        margin: 0 0.75rem; /* mniejsze odstępy */
+    }
+}
+
+#backToTop {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: var(--secondary-color);
+    color: #fff;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    cursor: pointer;
+    display: none;
+    z-index: 1001;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+#backToTop.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#backToTop:hover,
+#backToTop:focus {
+    opacity: 0.8;
+    transform: translateY(-5px);
+}
